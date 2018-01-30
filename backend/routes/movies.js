@@ -64,3 +64,15 @@ exports.getmovies = function(req,res){
 		}
 	});
 }
+
+exports.deletemovie = function(req,res)
+{
+	var _id = req.body.delete_id;
+	if(typeof _id != 'undefined' && _id != '')
+	{
+		Movie.findByIdAndRemove(_id, (err, movie) => 
+		{  
+			res.json({ success: true, message: 'Movie deleted successfully.','id':movie._id });
+		});
+	}
+}

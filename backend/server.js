@@ -31,6 +31,7 @@ apiRoutes.get('/', function(req, res) {
 });
 apiRoutes.post('/create_update_movie',movieroutes.createupdatemovie);
 apiRoutes.get('/getmovies',movieroutes.getmovies);
+apiRoutes.post('/delete',movieroutes.deletemovie);
 app.use('/', apiRoutes);
 
 
