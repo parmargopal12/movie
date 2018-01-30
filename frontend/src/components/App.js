@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import '../styles/App.css';
 import {Button, Glyphicon, ButtonToolbar, DropdownButton, MenuItem} from 'react-bootstrap';
+import toastr from 'toastr';
 import EditMovie from './EditMovie';
 import autoBind from 'react-autobind';
+import axios from 'axios';
 class App extends Component {
     constructor(props) {
         super(props);
@@ -23,12 +25,45 @@ class App extends Component {
         });
     }
 
+    saveMovie() {
+        let id = (typeof this.state.movieToEdit._id != 'undefined' && this.state.movieToEdit._id != '') ? this.state.movieToEdit._id : '';
+        let title = this.state.movieToEdit.title;
+        let year = this.state.movieToEdit.year;
+        let description = this.state.movieToEdit.description;
+        let posterurl = this.state.movieToEdit.posterurl;
+
+        this.setState({movieToEdit: null}, () => {
+            axios
+            .post('http://localhost:9000/create_update_movie', {
+                id,
+                title,
+                year,
+                description,
+                posterurl
+            })
+            .then(response => {
+                if (response.data.success === true) 
+                {
+                    toastr.success(response.data.message);
+                }
+            })
+        });
+    }
+
     cancelEditMovie() {
         this.setState({
             movieToEdit: null
         });
     }
-    
+
+    updateMovieState(field, value) {
+        let movie = this.state.movieToEdit;
+
+        movie[field] = value;
+
+        return this.setState({movieToEdit: movie});
+    }
+
     render() {
         return (
             <div className="App">
@@ -47,7 +82,7 @@ class App extends Component {
         return (
             <div>
             <div>
-            <EditMovie visible={editMovieVisible} movie={this.state.movieToEdit} close={this.cancelEditMovie} />
+            <EditMovie visible={editMovieVisible} movie={this.state.movieToEdit} save={this.saveMovie} close={this.cancelEditMovie} onChange={this.updateMovieState} />
             </div>
 
             </div>
