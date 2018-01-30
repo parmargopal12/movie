@@ -30,6 +30,7 @@ apiRoutes.get('/', function(req, res) {
 	res.json({ message: 'Welcome to the coolest API on earth!' });
 });
 apiRoutes.post('/create_update_movie',movieroutes.createupdatemovie);
+apiRoutes.get('/getmovies',movieroutes.getmovies);
 app.use('/', apiRoutes);
 
 

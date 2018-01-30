@@ -50,3 +50,17 @@ exports.createupdatemovie = function(req,res)
 		}
 	}	
 }
+
+exports.getmovies = function(req,res){
+	Movie.find({}, function(err, movies) {
+		if (!movies) {
+			res.json({ success: false, message: 'Movies not found.' });
+		} else if (movies) {
+			res.json({
+				success: true,
+				message: 'Movies found.',
+				movies:movies
+			});  
+		}
+	});
+}
