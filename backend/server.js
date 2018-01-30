@@ -7,6 +7,7 @@ var bodyParser  = require('body-parser');
 var mongoose    = require('mongoose');
 var cors = require('cors')
 var config = require('./config'); 
+var movieroutes = require('./routes/movies');
 // =================================================================
 // configuration ===================================================
 // =================================================================
@@ -23,6 +24,14 @@ app.use(bodyParser.json());
 app.get('/', function(req, res) {
 	res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
+
+var apiRoutes = express.Router(); 
+apiRoutes.get('/', function(req, res) {
+	res.json({ message: 'Welcome to the coolest API on earth!' });
+});
+apiRoutes.post('/create_update_movie',movieroutes.createupdatemovie);
+app.use('/', apiRoutes);
+
 
 // =================================================================
 // start the server ================================================
