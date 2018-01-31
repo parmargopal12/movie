@@ -98,6 +98,21 @@ class App extends Component {
         });
     }
 
+    searchBy(selectedOption) {
+        this.setState({
+            searchByYear: selectedOption,
+            activePage: 1
+        });
+    }
+
+    search() {
+        this.setState({
+            activePage: 1
+        }, () => {
+            this.loadData();
+        });
+    }
+
     addMovie() {
         this.setState({
             movieToEdit: {
