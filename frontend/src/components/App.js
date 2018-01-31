@@ -18,6 +18,7 @@ class App extends Component {
         this.state = {
             movies: [],
             total: 0,
+            movieToDeleteId: null,
             movieToEdit: null,
             activePage: 1,
             searchByYear: null,
@@ -54,6 +55,39 @@ class App extends Component {
                 })
             }
         })
+    }
+
+    confirmDeleteMovie(id) {
+        this.setState({
+            movieToDeleteId: id
+        });
+    }
+
+    deleteMovie() 
+    {
+        var delete_id = this.state.movieToDeleteId;
+        if(typeof delete_id != 'undefined' && delete_id != '')
+        {
+            this.setState({movieToDeleteId: null}, () => {
+                axios
+                .post(backendHost+'/delete', {
+                    delete_id                   
+                })
+                .then(response => {
+                    if (response.data.success === true) 
+                    {
+                        this.loadData();
+                        toastr.success(response.data.message);
+                    }
+                })
+            });
+        }
+    }
+
+    cancelDeleteMovie() {
+        this.setState({
+            movieToDeleteId: null
+        });
     }
 
     pageSelection(eventKey) {
