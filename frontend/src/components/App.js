@@ -75,6 +75,12 @@ class App extends Component {
         });
     }
 
+    updateMovie(movie) {
+        this.setState({
+            movieToEdit: Object.assign({}, movie)
+        });
+    }
+
     saveMovie() {
         let id = (typeof this.state.movieToEdit._id != 'undefined' && this.state.movieToEdit._id != '') ? this.state.movieToEdit._id : '';
         let title = this.state.movieToEdit.title;
