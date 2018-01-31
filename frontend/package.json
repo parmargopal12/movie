@@ -11,6 +11,7 @@
     "react-autobind": "^1.0.6",
     "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.2",
+    "react-image-fallback": "^7.0.1",
     "react-scripts": "^0.7.0",
     "react-select": "^1.0.0-rc.2",
     "toastr": "^2.1.2"

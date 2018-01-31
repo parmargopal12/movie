@@ -1,5 +1,78 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	font-size: 14px;
+	color:#314659;
+}
+#filter-bar{
+	margin:20px 0;
+}
+.movie-box{
+	margin-bottom: 50px; 
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #ebedf0;
+	border-radius: 2px
+}
+#movie-list {
+}
+.movie-row {
+	padding: 15px 0;
+	margin-left: 0;
+	margin-right: 0;
+	border-bottom: 1px solid #e8e8e8;
+	position: relative;
+	display: table;
+	clear: both;
+	width: 100%;
+}
+
+.movie-row .image {
+	float: left;
+	position: relative;
+	background-color: #eee;
+	border: 1px solid rgba(0,0,0,0.1);
+}
+
+.movie-row .title {
+	font-size: 12px;
+	margin-left: 114px;
+	margin-right: 0;
+	text-align: left;
+	color: rgba(0, 0, 0, 0.65);
+	font-weight: 500
+}
+
+.movie-row .title p span::before {
+	content: " | ";
+	color: #ddd;
+}
+
+.movie-row .title h4 {
+	color: rgba(0, 0, 0, 0.65);
+	margin-bottom: 4px;
+	font-size: 14px;
+	line-height: 22px;
+}
+
+.movie-row .title button {
+	float: right;
+	margin-left: 5px;
+}
+
+.movie-row .title .movie-info {
+	color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+}
+.movie-row .title .plot {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+.dropdown-menu
+{
+	height: 150px;
+	min-width: 80px;
+	overflow-y: scroll;
 }
