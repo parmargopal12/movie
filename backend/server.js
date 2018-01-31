@@ -22,7 +22,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.get('/', function(req, res) {
-	res.send('Hello! The API is at http://localhost:' + port + '/api');
+	res.send('Hello! The API is at http://localhost:' + port + '/');
 });
 
 var apiRoutes = express.Router(); 

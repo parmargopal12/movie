@@ -52,16 +52,55 @@ exports.createupdatemovie = function(req,res)
 }
 
 exports.getmovies = function(req,res){
-	Movie.find({}, function(err, movies) {
-		if (!movies) {
-			res.json({ success: false, message: 'Movies not found.' });
-		} else if (movies) {
-			res.json({
-				success: true,
-				message: 'Movies found.',
-				movies:movies
-			});  
-		}
+	var activePage = req.query.activePage || 1;
+	activePage = (Math.abs(activePage) || 1) - 1;
+	var sortBy = '_id';
+	var sortByCriteria = 'desc';
+	var searchStr = (typeof req.query.searchStr != 'undefined' && req.query.searchStr != '') ? req.query.searchStr : '';  	
+	var searchByYear = (typeof req.query.searchByYear != 'undefined' && req.query.searchByYear != '') ? req.query.searchByYear : ''; 
+	var perPage = (typeof req.query.limit != 'undefined' && req.query.limit > 0) ? parseInt(req.query.limit) : 10;
+	let total = 0;
+	var query = '';
+	if(searchStr != '' && searchByYear != '')
+	{
+		query = Movie.find({"title": {"$regex": searchStr, "$options": "i"},"year":searchByYear}); 
+	}	
+	else if(searchStr != '')
+	{
+		query = Movie.find({"title": {"$regex": searchStr, "$options": "i"}}); 
+	}
+	else if(searchByYear != '')
+	{
+		query = Movie.find({"year":searchByYear}); 
+	}
+	else
+	{
+		query = Movie.find();
+	}
+	query
+	.exec().then(function(docs){
+		total  = docs.length;
+		query.sort({ '_id' : -1})
+		.skip(perPage * activePage)
+		.limit(perPage)
+		.exec(function(err, movies) { 
+			if(err){
+				res.json({
+					success: false,
+					message: err,
+					movies:movies,
+					total:total
+				});
+			}
+			else{
+				res.json({
+					success: true,
+					message: 'Movies found.',
+					movies:movies,
+					total:total
+				}); 
+			} 
+		});
 	});
 }
 
